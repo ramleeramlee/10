@@ -1,0 +1,191 @@
+<!Doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <style>
+        @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css");
+
+
+        .background-banner {
+            color: black;
+            max-height: 100%;
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        .wide-button {
+            width: 100%;
+            /* 원하는 너비로 설정 */
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <div class="background-banner">
+        <nav class="navbar border-bottom border-bottom-dark d-flex justify-content-space-between">
+            <div class="ms-3">
+                <img src="{{ url_for('static', filename='logo1.png') }}" width=100px alt="">
+            </div>
+            <nav class="navbar navbar-expand-lg">
+                <div class="container-fluid">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link text-black" aria-current="page" href="{{ url_for('home')}}">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-black" href="{{ url_for('mnt')}}">Management</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </nav>
+
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">물품 등록</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{{ url_for('item_create')}}" method="POST">
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">물품명</label>
+                                <input type="text" class="form-control" id="exampleInputEmail1" name="name"
+                                    aria-describedby="emailHelp">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">가격</label>
+                                <input type="text" class="form-control" id="exampleInputPassword1" name="price">
+                                <div id="emailHelp" class="form-text">숫자만 입력해주세요</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">보유수량</label>
+                                <input type="text" class="form-control" id="exampleInputPassword1" name='count'>
+                                <div id="emailHelp" class="form-text">숫자만 입력해주세요</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">이미지URL</label>
+                                <input type="text" class="form-control" id="exampleInputPassword1" name='imgUrl'>
+                            </div>
+                            <button type="submit" class="btn btn-primary">등록</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row row-cols-1 row-cols-md-4 g-4 mx-auto w-75 pb-5">
+            <div class="col-lg-6 mx-auto"></div> 
+
+            <div class="col-lg-6 mx-auto">
+                <div class="float-end">
+                    <br>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">물품 등록</button>
+                </div>
+            </div>
+
+            <table class="table" style="height: 200px; width: 100%; text-align: center; vertical-align: middle;">
+                <thead>
+                    <tr>
+                        <th scope="col">물품코드</th>
+                        <th scope="col">이미지</th>
+                        <th scope="col">물품명</th>
+                        <th scope="col">물품 가격</th>
+                        <th scope="col">보유수량</th>
+                        <th scope="col">수정</th>
+                        <th scope="col">삭제</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for item in data %}
+                    <tr>
+
+                        <td>{{item.id}}</td>
+                        <td><img src="{{item.imgUrl}}" class="card-img-top"
+                                style="width: 100px; height: 100px; object-fit: cover;" alt="..."></td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.price}} 원</td>
+                        <td>{{item.count}} 개</td>
+
+                        <td>
+                            <div class="d-flex align-items-center justify-content-center">
+                                <!-- 증가 -->
+                                <form action="{{url_for('item_add')}}" method="POST">
+                                    <input type="hidden" name="item_id" value="{{ item.id }}">
+                                    <a href="#" onclick="this.closest('form').submit();" class="bi bi-plus-circle"
+                                        style="font-size: 1.5rem;"></a>
+                                </form>
+                                &nbsp
+                                <!-- 감소 -->
+                                <form action="{{url_for('item_sub')}}" method="POST">
+                                    <input type="hidden" name="item_id" value="{{ item.id }}">
+                                    <a href="#" onclick="this.closest('form').submit();" class="bi bi-dash-circle"
+                                        style="font-size: 1.5rem;"></a>
+                                </form>
+                            </div>
+                        </td>
+                        <!-- 삭제 -->
+                        <td>
+                            <form action="{{url_for('item_del')}}" method="POST">
+                                <input type="hidden" name="item_id" value="{{ item.id }}">
+                                <a href="#" onclick="this.closest('form').submit();" class="bi bi-x-circle"
+                                    style="font-size: 1.5rem; color: red;"></a>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+    </div>
+    </div>
+
+    <div class="container">
+        <footer>
+            <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
+                <p>@ Web Mini Project Team 10</p>
+                <ul class="list-unstyled d-flex">
+                    <li class="ms-3"><a class="link-body-emphasis" href="https://www.youtube.com/@SpartaCodingClub"><i
+                                class="bi bi-youtube"></i></a></li>
+                    <li class="ms-3"><a class="link-body-emphasis" href="https://www.instagram.com/spartacodingclub/"><i
+                                class="bi bi-instagram"></i></a></li>
+                    <li class="ms-3"><a class="link-body-emphasis" href="https://spartacodingclub.kr/blog"><i
+                                class="bi bi-postcard"></i></a></li>
+                </ul>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous">
+        </script>
+
+</body>
+
+</html>
