@@ -77,8 +77,6 @@ def mnt1():
     return render_template('manager1.html', data=item_list)
 
 
-
-
 @app.route("/mnt/create/", methods=["POST"])
 def item_create():
     # form에서 보낸 데이터 받아오기
@@ -187,10 +185,6 @@ def logout():
     logout_user()
     return redirect(url_for('login'))
 
-@app.route('/login_index')
-@login_required
-def login_index():
-    return render_template('login_index.html', username=current_user.username)
 
 @app.route("/mnt/login_create/", methods=["POST"])
 def login_create():
