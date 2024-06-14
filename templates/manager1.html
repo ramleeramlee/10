@@ -51,7 +51,7 @@
                             </li> -->
                             <li>
                                 <!-- <a href="{{ url_for('home') }}" class="btn btn-primary">Logout</a> -->
-                                <a class="nav-link text-black" aria-current="page"                        
+                                <a class="nav-link text-black" aria-current="page"
                                     href="{{ url_for('home')}}">Logout</a>
                             </li>
                         </ul>
@@ -102,28 +102,24 @@
         <div class="modal fade" id="login_add" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <!-- <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">물품 등록1</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div> -->
-                    <div class="modal-body">                    
+                    <div class="modal-body">
                         <form action="{{ url_for('login_create')}}" method="POST">
                             <div class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label">Account</label>
+                                <label for="exampleInputEmail1" class="form-label">account</label>
                                 <input type="text" class="form-control" id="exampleInputEmail1" name="username"
                                     aria-describedby="emailHelp">
                             </div>
                             <div class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label">Name</label>
-                                <input type="text" class="form-control" id="exampleInputEmail1" name="name"
+                                <label for="exampleInputEmail1" class="form-label">name</label>
+                                <input type="text" class="form-control" id="exampleInputEmail1" name="username"
                                     aria-describedby="emailHelp">
                             </div>
                             <div class="mb-3">
-                                <label for="exampleInputPassword1" class="form-label">Password</label>
+                                <label for="exampleInputPassword1" class="form-label">password</label>
                                 <input type="password" class="form-control" id="exampleInputPassword1" name="password">
                             </div>
                             <div class="mb-3">
-                                <label for="exampleInputPassword1" class="form-label">Level</label>
+                                <label for="exampleInputPassword1" class="form-label">level</label>
                                 <input type="text" class="form-control" id="exampleInputPassword1" name='level'>
                                 <div id="emailHelp" class="form-text">3 : 슈퍼관리자, 2 : 메인관리자, 1 : 관리자</div>
                             </div>
@@ -145,7 +141,7 @@
                 <div class="float-end">
                     <br>
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#login_add">관리자 추가</button>
+                    <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#login_add">관리자 추가</button> -->
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                         data-bs-target="#exampleModal">물품 등록</button>
@@ -196,11 +192,11 @@
                         </td>
                         <!-- 삭제 -->
                         <td>
-                            <form action="{{url_for('item_del')}}" method="POST">
+                            <!-- <form action="{{url_for('item_del')}}" method="POST">
                                 <input type="hidden" name="item_id" value="{{ item.id }}">
                                 <a href="#" onclick="this.closest('form').submit();" class="bi bi-x-circle"
                                     style="font-size: 1.5rem;"></a>
-                            </form>
+                            </form> -->
                         </td>
                     </tr>
                     {% endfor %}

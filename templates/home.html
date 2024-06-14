@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
+    <title>Daiso Iventory</title>
     <style>
         @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css");
 
@@ -47,8 +47,11 @@
                                 <a class="nav-link text-black" aria-current="page" href="{{ url_for('home')}}">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-black" href="{{ url_for('mnt')}}">Management</a>
+                                <a class="nav-link text-black" href="{{ url_for('login')}}">Login</a>
                             </li>
+                            <!-- <li class="nav-item">
+                                <a class="nav-link text-black" href="{{ url_for('mnt')}}">Management</a>
+                            </li> -->
                         </ul>
                     </div>
                 </div>
@@ -56,26 +59,25 @@
         </nav>
 
         <br>
-
-    <!-- 제품 전체 조회 -->
-    <div class="row row-cols-1 row-cols-md-4 g-4 mx-auto w-75 pb-5">
-        {% for item in data %}
-        <div class="col">
-            <div class="card h-100">
-                <!-- <p class="card-text">{{item.id}}</p> -->
-                <img src="{{item.imgUrl}}" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-name">{{item.name}}</h5>
-                    <p class="card-text">{{item.price}} 원</p>
-                    <p class="card-text">{{item.count}} 개</p>
+        <!-- 제품 전체 조회 -->
+        <div class="row row-cols-1 row-cols-md-4 g-4 mx-auto w-75 pb-5">
+            {% for item in data %}
+            <div class="col">
+                <div class="card h-100">
+                    <!-- <p class="card-text">{{item.id}}</p> -->
+                    <img src="{{item.imgUrl}}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-name">{{item.name}}</h5>
+                        <p class="card-text">{{item.price}} 원</p>
+                        <p class="card-text">{{item.count}} 개</p>
+                    </div>
                 </div>
             </div>
+            {% endfor %}
         </div>
-        {% endfor %}
+
+
     </div>
-
-
-        </div>
     </div>
 
     <div class="container">
