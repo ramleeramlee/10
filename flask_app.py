@@ -6,7 +6,7 @@
 from flask_sqlalchemy import SQLAlchemy
 import os
 from flask import Flask, render_template, request, redirect, url_for, flash 
-from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user 
 from sqlalchemy import or_
 app = Flask(__name__)
 # DB 기본 코드
@@ -119,6 +119,7 @@ def item_add():
         db.session.commit()
 
     return redirect(url_for('mnt'))
+        
 
 
 @app.route("/mnt/sub/", methods=["POST"])
