@@ -5,8 +5,9 @@
 '''
 from flask_sqlalchemy import SQLAlchemy
 import os
-from flask import Flask, render_template, request, redirect, url_for, flash  # 11111111
-from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user  # 1111111111
+from flask import Flask, render_template, request, redirect, url_for, flash 
+from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+from sqlalchemy import or_
 app = Flask(__name__)
 # DB 기본 코드
 
@@ -88,7 +89,7 @@ def item_create():
 
     # 데이터를 DB에 저장하기
     item = Items(name=name_receive, price=price_receive,
-                 count=count_receive, imgUrl=imgUrl_receive)
+                count=count_receive, imgUrl=imgUrl_receive)
     db.session.add(item)
     db.session.commit()
 
@@ -132,20 +133,28 @@ def item_sub():
 
     return redirect(url_for('mnt'))
 
+@app.route("/mnt/search_h/", methods=["GET"])
+def item_search_h():
+    search_receive = request.args.get("search", "")
+    search_list = Items.query.filter(
+        or_(Items.name.like(f'%{search_receive}%'))).all()
+        
+    return render_template('home.html', data=search_list)
 
-def item_search():
+@app.route("/mnt/search_m/", methods=["GET"])
+def item_search_m():
+    search_receive = request.args.get("search", "")
+    search_list = Items.query.filter(
+        or_(Items.name.like(f'%{search_receive}%'))).all()
+        
+    return render_template('manager.html', data=search_list)
 
-    search_receive = request.form.get("item_search")
-    item_serach = Items.query.filter(name.contains(query)).all()
-
-    return redirect(url_for(home.html, 'item_list'))
 
 ####################################################################################
 
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
-
 
 with app.app_context():
     db.create_all()
